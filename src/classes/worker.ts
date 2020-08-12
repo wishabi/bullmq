@@ -77,10 +77,16 @@ export class Worker<T = any> extends QueueBase {
     }
     this.timerManager = new TimerManager();
 
+    // We need the run part of the code to be disabled
+    // in order to use bullMQ the way we expect it to
+    // in BullWhip. Using this env variable we can pass
+    // tests while still disabling it while running in prod
     /* tslint:disable: no-floating-promises */
-    // this.run().catch(error => {
-    //   console.error(error);
-    // });
+    if (process.env.ENV == 'for_tests') {
+      this.run().catch(error => {
+        console.error(error);
+      });
+    }
   }
 
   get repeat() {
