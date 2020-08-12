@@ -77,17 +77,12 @@ export class Worker<T = any> extends QueueBase {
     }
     this.timerManager = new TimerManager();
 
-    // We need the run part of the code to be disabled
-    // in order to use bullMQ the way we expect it to
-    // in BullWhip. Using the setting below we can skip
-    // the run function when we need to
-    if (this.opts.settings && this.opts.settings.disableRun) {
-      return;
+    if (!this.opts.settings || !this.opts.settings.disableAutoRun) {
+      /* tslint:disable: no-floating-promises */
+      this.run().catch(error => {
+        console.error(error);
+      });
     }
-    /* tslint:disable: no-floating-promises */
-    this.run().catch(error => {
-      console.error(error);
-    });
   }
 
   get repeat() {
