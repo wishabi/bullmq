@@ -12,7 +12,7 @@
     "build": "tsc && yarn copylua",
     "copylua": "copyfiles -f ./src/commands/*.lua ./dist/commands",
     "lint": "tslint --project tsconfig.json -c tslint.json 'src/**/*.ts'",
-    "test": "export ENV=for_tests && yarn lint && tsc && ts-mocha --paths 'src/**/test_*.ts' --exit",
+    "test": "yarn lint && tsc && ts-mocha --paths 'src/**/test_*.ts' --exit",
     "test:watch": "yarn lint  && ts-mocha --paths 'src/**/test_*.ts' -w --watch-extensions ts",
     "coverage": "nyc --reporter=lcov npm run test",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
