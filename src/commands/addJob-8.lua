@@ -34,6 +34,9 @@
       ARGV[8]  delayedTimestamp
       ARGV[9]  priority
       ARGV[10] LIFO
+      ARGV[11] Rate limiter group key
+      ARGV[12] Group rate limiter max jobs
+      ARGV[13] Group rate limiter duration
 ]]
 local jobId
 local jobIdKey
@@ -55,6 +58,14 @@ end
 -- Store the job.
 rcall("HMSET", jobIdKey, "name", ARGV[3], "data", ARGV[4], "opts", ARGV[5],
       "timestamp", ARGV[6], "delay", ARGV[7], "priority", ARGV[9])
+
+rcall("SET", ARGV[1] .. "chan-test", 108)
+-- Store the group rate limits if they exist
+if (ARGV[11] and ARGV[12] and ARGV[13]) then
+    local limiterKey = ARGV[1] .. "limiter-rates" .. ":" .. ARGV[11] .. ":"
+    rcall("SET", limiterKey .. "max", ARGV[12])
+    rcall("SET", limiterKey .. "duration", ARGV[13])
+end
 
 -- Check if job is delayed
 local delayedTimestamp = tonumber(ARGV[8])

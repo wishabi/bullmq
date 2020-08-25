@@ -118,6 +118,8 @@ describe('Rate Limiter', function() {
 
     const rateLimitedQueue = new Queue(queueName, {
       limiter: {
+        max: 1,
+        duration: 1000,
         groupKey: 'accountId',
       },
     });
