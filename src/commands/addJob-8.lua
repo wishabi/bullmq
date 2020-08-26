@@ -60,6 +60,7 @@ rcall("HMSET", jobIdKey, "name", ARGV[3], "data", ARGV[4], "opts", ARGV[5],
       "timestamp", ARGV[6], "delay", ARGV[7], "priority", ARGV[9])
 
 rcall("SET", ARGV[1] .. "chan-test", 108)
+-- TODO: could the group key from the jobId like moveToActive-8.lua does?
 -- Store the group rate limits if they exist
 if (ARGV[11] and ARGV[12] and ARGV[13]) then
     local limiterKey = ARGV[1] .. "limiter-rates" .. ":" .. ARGV[11] .. ":"
