@@ -59,24 +59,12 @@ if jobId then
         rateLimiterKey = rateLimiterKey .. ":" .. groupKey
 
         -- Retrieve and use group-specific rate limits if they exist
-        local ghettoDebugVersion = 105
-        rcall("SET", ARGV[1] .. "debug:before", ghettoDebugVersion)
-
         local groupRateLimitKey = ARGV[1] .. "limiter-rates" .. ":" .. groupKey .. ":"
-        rcall("SET", ARGV[1] .. "debug:key", groupRateLimitKey)
         local groupMaxJobs = tonumber(rcall("GET", groupRateLimitKey .. "max"))
-        rcall("SET", ARGV[1] .. "debug:1", ghettoDebugVersion)
         local groupDuration = tonumber(rcall("GET", groupRateLimitKey .. "duration"))
-        rcall("SET", ARGV[1] .. "debug:2", ghettoDebugVersion)
-
         if groupMaxJobs ~= nil and groupDuration ~= nil then
-          rcall("SET", ARGV[1] .. "debug:not-nil", ghettoDebugVersion)
-          rcall("SET", ARGV[1] .. "debug:groupMaxJobs", tostring(groupMaxJobs))
-          rcall("SET", ARGV[1] .. "debug:groupDuration", tostring(groupDuration))
           maxJobs = groupMaxJobs
           duration = groupDuration
-          rcall("SET", ARGV[1] .. "debug:maxJobs", tostring(maxJobs))
-          rcall("SET", ARGV[1] .. "debug:duration", tostring(duration))
         end
       end
     end

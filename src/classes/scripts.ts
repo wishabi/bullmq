@@ -67,7 +67,7 @@ export class Scripts {
       const groupIdentifier = jobData[groupKey];
       const rates = queue.opts.limiter.groupRates[groupIdentifier];
 
-      if (rates) args.push(groupIdentifier, rates.max, rates.duration);
+      if (rates) args.push(rates.max, rates.duration);
     }
 
     keys = keys.concat(<string[]>args);
