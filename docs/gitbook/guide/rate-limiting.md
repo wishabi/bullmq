@@ -44,7 +44,7 @@ const worker = new Worker(queueName, async job => {}, {
 The following will configure the rate limits so that jobs are grouped by an attribute `shape`. Each grouping of those jobs will be rate limited seperately. If a particular group has rate defined in `groupRates`, then that will be used. Otherwise, the group will use non-group-specific
 rate limit (set here to 5 per second).
 
-In this example, jobs with a `shape` attribute value of `rectangle` will be limited at 4 jobs/second, where as ones with the value `triangle` will be limited to 3/second. Jobs with a `shape` attribute value of anything else, e.g. `circle` or `square` will use the non-group-specific rate limit of 5 job per second per group.
+In this example, jobs with a `shape` attribute value of `rectangle` will be limited at 4 jobs/second, where as ones with the value `triangle` will be limited to 3/second. Jobs with a `shape` attribute value of anything else, e.g. `circle` or `square` will use the non-group-specific rate limit of 5 jobs per second per group.
 
 ```typescript
 const limiterConfig: RateLimiterOptions = {
