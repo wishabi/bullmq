@@ -185,6 +185,7 @@ describe('Rate Limiter', function() {
     const numGroups = 3;
     const numJobsPerGroup = 5;
     const startTime = Date.now();
+    const buffer = 10; // Used for time diffs, sometimes things are off by a few ms
 
     const queueScheduler = new QueueScheduler(queueName);
     await queueScheduler.waitUntilReady();
@@ -248,8 +249,8 @@ describe('Rate Limiter', function() {
             }
             for (let i = 1; i < completed[group].length; i++) {
               const diff = completed[group][i] - prevTime;
-              expect(diff).to.be.below(lowerBound + 1000);
-              expect(diff).to.be.gte(lowerBound);
+              expect(diff).to.be.below(lowerBound + 1000 + buffer);
+              expect(diff).to.be.gte(lowerBound - buffer);
               prevTime = completed[group][i];
             }
           }
