@@ -59,7 +59,7 @@ if jobId then
         rateLimiterKey = rateLimiterKey .. ":" .. groupKey
 
         -- Retrieve and use group-specific rate limits if they exist
-        local groupRateLimitKey = ARGV[1] .. "limiter-rates" .. ":" .. groupKey .. ":"
+        local groupRateLimitKey = ARGV[1] .. "group-limiter-config" .. ":" .. groupKey .. ":"
         local groupMaxJobs = tonumber(rcall("GET", groupRateLimitKey .. "max"))
         local groupDuration = tonumber(rcall("GET", groupRateLimitKey .. "duration"))
         if groupMaxJobs ~= nil and groupDuration ~= nil then

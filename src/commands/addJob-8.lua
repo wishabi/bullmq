@@ -64,7 +64,7 @@ local groupMaxJobs = ARGV[11]
 local groupDuration = ARGV[12]
 
 if (groupKey ~= nil and groupMaxJobs and groupDuration) then
-    local limiterKey = ARGV[1] .. "limiter-rates" .. ":" .. groupKey .. ":"
+    local limiterKey = ARGV[1] .. "group-limiter-config" .. ":" .. groupKey .. ":"
     rcall("SET", limiterKey .. "max", groupMaxJobs)
     rcall("SET", limiterKey .. "duration", groupDuration)
 end
