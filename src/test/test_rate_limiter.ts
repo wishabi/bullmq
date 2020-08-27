@@ -117,20 +117,18 @@ describe('Rate Limiter', function() {
     const queueScheduler = new QueueScheduler(queueName);
     await queueScheduler.waitUntilReady();
 
+    const limiterConfig: RateLimiterOptions = {
+      max: 1,
+      duration: 1000,
+      groupKey: 'accountId',
+    };
+
     const rateLimitedQueue = new Queue(queueName, {
-      limiter: {
-        max: 1,
-        duration: 1000,
-        groupKey: 'accountId',
-      },
+      limiter: limiterConfig,
     });
 
     const worker = new Worker(queueName, async job => {}, {
-      limiter: {
-        max: 1,
-        duration: 1000,
-        groupKey: 'accountId',
-      },
+      limiter: limiterConfig,
     });
 
     const completed: { [index: string]: number[] } = {};
@@ -241,20 +239,16 @@ describe('Rate Limiter', function() {
           for (const group in completed) {
             let prevTime = completed[group][0];
             let lowerBound = 0;
-            let upperBound = 0;
             if (group == 'group1') {
               lowerBound = 1000;
-              upperBound = 2000;
             } else if (group == 'group2') {
               lowerBound = 2000;
-              upperBound = 3000;
             } else if (group == 'group3') {
               lowerBound = 3000;
-              upperBound = 4000;
             }
             for (let i = 1; i < completed[group].length; i++) {
               const diff = completed[group][i] - prevTime;
-              expect(diff).to.be.below(upperBound);
+              expect(diff).to.be.below(lowerBound + 1000);
               expect(diff).to.be.gte(lowerBound);
               prevTime = completed[group][i];
             }
