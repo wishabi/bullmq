@@ -64,7 +64,7 @@ workflows:
             - unit_test
           filters:
             branches:
-              only: master
+              only: CCOL-420-blaze-it
       - publish:
           requires:
             - hold
