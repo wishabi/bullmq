@@ -1,3 +1,8 @@
+# 1.9.3-beta (2020-09-03)
+
+### Flipp-added Features
+* Attempt to mitigate EMFILE errors by using graceful-fs to load .lua scripts (see [changes](https://github.com/wishabi/bullmq/pull/6))
+
 # 1.9.2-beta (2020-08-27)
 
 ### Flipp-added Features
