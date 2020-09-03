@@ -26,6 +26,7 @@
     "@types/ioredis": "^4.16.3",
     "cron-parser": "^2.7.3",
     "get-port": "^5.0.0",
+    "graceful-fs": "^4.2.4",
     "ioredis": "^4.17.3",
     "lodash": "^4.17.11",
     "semver": "^6.3.0",

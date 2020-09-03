@@ -17,7 +17,7 @@ import { Redis } from 'ioredis';
 const path = require('path');
 const util = require('util');
 
-const fs = require('fs');
+const fs = require('graceful-fs');
 
 const readdir = util.promisify(fs.readdir);
 const readFile = util.promisify(fs.readFile);
